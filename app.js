@@ -13,12 +13,13 @@ const offscreen_ctx = canvas.templateCanvas.getContext("2d");
 const table = document.getElementById("table");
 
 var mood_data = [];
-var config = { theme: 1, maximum_data_points: 900, minimum_minutes: 2 };
+var config = { theme: 1, maximum_data_points: 900, maximum_graphed_points: 30, minimum_minutes: 2 };
 
 const download_link = document.getElementById("download");
 
 const theme_input = document.getElementById("theme");
 const data_limit_input = document.getElementById("maxData");
+const data_graph_limit_input = document.getElementById("maxGraphData");
 const data_combine_input = document.getElementById("minTime");
 
 function renderTemplate0(ctx) {
@@ -204,7 +205,6 @@ function loadData(dataString, saveData) {
 	for (var i = 0; i < mood_data.length; i++) {
 		addTableRow(table, mood_data[i].timestamp, mood_data[i].valence, mood_data[i].arousal);
 	}
-	ctx.drawImage(canvas.templateCanvas, 0, 0);
 
 	if (saveData) {
 		truncateData(table);
@@ -224,13 +224,10 @@ function handleCanvasClick(event) {
 	let dataX = (event.offsetX / canvas.offsetWidth);
 	let dataY = (1 - (event.offsetY / canvas.offsetHeight));
 
-	let dotSize = Math.min(canvas.width, canvas.height) * 0.06;
-
-	ctx.drawImage(canvas.templateCanvas, 0, 0);
-	ctx.fillStyle = "black";
-	ctx.fillRect((dataX * canvas.width) - (dotSize / 2), ((1 - dataY) * canvas.height) - (dotSize / 2), dotSize, dotSize);
-
 	addData(dataT, dataX, dataY);
+
+	graphData(config.maximum_graphed_points);
+
 }
 
 function handleDataUpdate(event) {
@@ -241,7 +238,7 @@ function handleDataUpdate(event) {
 	if (event.key === "mood_data") {
 		loadData(event.newValue, false);
 	}
-	ctx.drawImage(canvas.templateCanvas, 0, 0);
+	graphData(config.maximum_graphed_points);
 }
 
 function handleFileDownload() {
@@ -260,6 +257,7 @@ function handleFileUpload() {
 		"load",
 		() => {
 			loadData(reader.result, true);
+			graphData(config.maximum_graphed_points);
 			document.querySelector("input[type=file]").value = '';
 		},
 		false
@@ -285,19 +283,21 @@ function loadTheme() {
 
 function loadConfig(configString) {
 	if (configString == null) {
-		configString = '{"theme": 1, "maximum_data_points": 900, "minimum_minutes": 2}';
+		configString = '{"theme": 1, "maximum_data_points": 900, "maximum_graphed_points": 30, "minimum_minutes": 2}';
 	}
 
 	config = JSON.parse(configString);
 
 	theme_input.value = config.theme;
 	data_limit_input.value = config.maximum_data_points;
+	data_graph_limit_input.value = config.maximum_graphed_points;
 	data_combine_input.value = config.minimum_minutes;
 }
 
 function writeConfig() {
 	config.theme = theme_input.value;
 	config.maximum_data_points = data_limit_input.value;
+	config.maximum_graphed_points = data_graph_limit_input.value;
 	config.minimum_minutes = data_combine_input.value;
 
 	window.localStorage.setItem("config", JSON.stringify(config));
@@ -310,9 +310,13 @@ function graphData(items) {
 	let start = Math.max(mood_data.length - items, 0);
 
 	for (var i = start; i < mood_data.length; i++) {
-		let value = 255 * ((mood_data[i].timestamp - mood_data[start].timestamp) / (mood_data[mood_data.length - 1].timestamp - mood_data[start].timestamp));
+		let value = 200 * ((mood_data[i].timestamp - mood_data[start].timestamp) / (mood_data[mood_data.length - 1].timestamp - mood_data[start].timestamp));
 
-		ctx.fillStyle = "rgba(" + value + ",0," + value + ",0.75)";
+		ctx.fillStyle = "rgba(" + value + ",0," + value + ",0.66)";
+
+		if ((i == mood_data.length - 1) && ((Date.now() - mood_data[i].timestamp < 60 * 1000 * config.minimum_minutes) || (config.minimum_minutes == 0))) {
+			ctx.fillStyle = "rgba(255,0,255,0.875)";
+		}
 
 		ctx.fillRect((mood_data[i].valence * canvas.width) - (dotSize / 2), ((1 - mood_data[i].arousal) * canvas.height) - (dotSize / 2), dotSize, dotSize);
 	}
@@ -324,19 +328,25 @@ loadData(window.localStorage.getItem("mood_data"), false);
 window.addEventListener('storage', handleDataUpdate);
 
 loadTheme();
-ctx.drawImage(canvas.templateCanvas, 0, 0);
+graphData(config.maximum_graphed_points);
 canvas.addEventListener("click", handleCanvasClick);
 
 theme_input.onchange = function () {
 	writeConfig();
 	loadTheme();
-	ctx.drawImage(canvas.templateCanvas, 0, 0);
+	graphData(config.maximum_graphed_points);
 };
 
 data_limit_input.onchange = function () {
 	writeConfig();
 	truncateData(table);
+	graphData(config.maximum_graphed_points);
 	window.localStorage.setItem("mood_data", JSON.stringify(mood_data));
+};
+
+data_graph_limit_input.onchange = function () {
+	writeConfig();
+	graphData(config.maximum_graphed_points);
 };
 
 data_combine_input.onchange = function () {

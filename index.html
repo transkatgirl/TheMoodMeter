@@ -35,6 +35,8 @@
 			<h3>Data</h3>
 			<label>Maximum data points: </label>
 			<input type="number" id="maxData" value="900"><br />
+			<label>Maximum graphed data points: </label>
+			<input type="number" id="maxGraphData" value="30"><br />
 			<label>Replace data points fewer than </label>
 			<input type="number" id="minTime" value="2"><label> minutes apart</label><br />
 			<p></p>
@@ -42,9 +44,11 @@
 			<button onclick="handleFileDownload()">Export</button>
 			<input type="file" onchange="handleFileUpload()" />
 			<a id="download"></a>
+			<p></p>
+			<button onclick="graphData(config.maximum_data_points)">Graph All Data (No Limit)</button>
+			<p></p>
 		</details>
 		<h2>Recorded moods</h2>
-		<button onclick="graphData(100)">Graph Data</button>
 		<table id="table">
 			<tr>
 				<th>Date</th>
