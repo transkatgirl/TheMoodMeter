@@ -3,6 +3,6 @@
 - add way to edit/delete individual data points
 - add data visualization
 - ui improvements
-- mobile ui
+	- mobile ui
 - push notifications
 - opengraph
