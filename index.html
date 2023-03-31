@@ -24,9 +24,27 @@
 		<details>
 			<summary>Settings</summary>
 			<h3>Appearance</h3>
-			<p>TODO</p>
+			<label>Theme: </label>
+			<select id="theme">
+				<option value="0">Basic Chart</option>
+				<option value="1" selected>Original Mood Meter</option>
+				<option value="2">Extended Mood Meter</option>
+			</select>
+			<p></p>
+			<hr />
+			<h3>Reminders</h3>
+			<label>Daily reminders: </label>
+			<input type="checkbox" id="enableReminders"><br />
+			<label>Reminders per day: </label>
+			<input type="number" id="reminderAmount" value="3">
+			<p>TODO: MAKE REMINDERS WORK</p>
 			<hr />
 			<h3>Data</h3>
+			<label>Maximum data points: </label>
+			<input type="number" id="maxData" value="900"><br />
+			<label>Replace data points fewer than </label>
+			<input type="number" id="minTime" value="2"><label> minutes apart</label><br />
+			<p></p>
 			<button onclick="clearData()">Clear All</button>
 			<button onclick="handleFileDownload()">Export</button>
 			<input type="file" onchange="handleFileUpload()" />

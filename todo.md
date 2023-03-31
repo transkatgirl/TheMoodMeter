@@ -1,6 +1,6 @@
 # stuff to do
 
-- add way to edit/delete individual data points
+- add way to delete individual data points
 - add data visualization
 - ui improvements
 	- mobile ui

@@ -13,8 +13,15 @@ const offscreen_ctx = canvas.templateCanvas.getContext("2d");
 const table = document.getElementById("table");
 
 var mood_data = [];
+var config = { theme: 1, reminders: false, reminders_per_day: 3, maximum_data_points: 900, minimum_minutes: 2 };
 
 const download_link = document.getElementById("download");
+
+const theme_input = document.getElementById("theme");
+const reminder_input = document.getElementById("enableReminders");
+const reminder_count_input = document.getElementById("reminderAmount");
+const data_limit_input = document.getElementById("maxData");
+const data_combine_input = document.getElementById("minTime");
 
 function renderTemplate0(ctx) {
 	ctx.fillStyle = "firebrick";
@@ -95,6 +102,12 @@ function renderTemplate1(ctx) {
 	ctx.restore();
 }
 
+// TODO
+function renderTemplate2(ctx) {
+	ctx.fillStyle = "gray";
+	ctx.fillRect(0, 0, canvas.width, canvas.height);
+}
+
 function addTableRow(table, dataT, dataX, dataY) {
 	let row = table.insertRow();
 
@@ -111,10 +124,23 @@ function clearTable(table) {
 }
 
 function addData(dataT, dataX, dataY) {
+	if ((mood_data.length > 0) && (dataT - mood_data[mood_data.length - 1].timestamp < 60 * 1000 * config.minimum_minutes)) {
+		table.deleteRow(table.rows.length - 1);
+		mood_data.pop();
+	}
+
 	addTableRow(table, dataT, dataX, dataY);
 	mood_data.push({ timestamp: dataT, valence: dataX, arousal: dataY });
 
+	truncateData(table);
 	window.localStorage.setItem("mood_data", JSON.stringify(mood_data));
+}
+
+function truncateData(table) {
+	while (mood_data.length > config.maximum_data_points) {
+		table.deleteRow(1);
+		mood_data.shift();
+	}
 }
 
 function loadData(dataString, saveData) {
@@ -134,6 +160,7 @@ function loadData(dataString, saveData) {
 	ctx.drawImage(canvas.templateCanvas, 0, 0);
 
 	if (saveData) {
+		truncateData(table);
 		window.localStorage.setItem("mood_data", JSON.stringify(mood_data));
 	}
 }
@@ -160,9 +187,14 @@ function handleCanvasClick(event) {
 }
 
 function handleDataUpdate(event) {
-	if (event.key = "mood_data") {
+	if (event.key === "config") {
+		loadConfig(event.newValue);
+		loadTheme();
+	}
+	if (event.key === "mood_data") {
 		loadData(event.newValue, false);
 	}
+	ctx.drawImage(canvas.templateCanvas, 0, 0);
 }
 
 function handleFileDownload() {
@@ -191,9 +223,74 @@ function handleFileUpload() {
 	}
 }
 
+function loadTheme() {
+	switch (config.theme) {
+		case "1":
+			renderTemplate1(offscreen_ctx);
+			break;
+		case "2":
+			renderTemplate2(offscreen_ctx);
+			break;
+		default:
+			renderTemplate0(offscreen_ctx);
+	}
+}
+
+function loadConfig(configString) {
+	if (configString == null) {
+		configString = '{"theme": 1, "reminders": false, "reminders_per_day": 3, "maximum_data_points": 900, "minimum_minutes": 2}';
+	}
+
+	config = JSON.parse(configString);
+
+	theme_input.value = config.theme;
+	reminder_input.value = config.reminders;
+	reminder_count_input.value = config.reminders_per_day;
+	data_limit_input.value = config.maximum_data_points;
+	data_combine_input.value = config.minimum_minutes;
+}
+
+function writeConfig() {
+	config.theme = theme_input.value;
+	config.reminders = reminder_input.value;
+	config.reminders_per_day = reminder_count_input.value;
+	config.maximum_data_points = data_limit_input.value;
+	config.minimum_minutes = data_combine_input.value;
+
+	window.localStorage.setItem("config", JSON.stringify(config));
+}
+
+loadConfig(window.localStorage.getItem("config"));
+
 loadData(window.localStorage.getItem("mood_data"), false);
 window.addEventListener('storage', handleDataUpdate);
 
-renderTemplate1(offscreen_ctx);
+loadTheme();
 ctx.drawImage(canvas.templateCanvas, 0, 0);
 canvas.addEventListener("click", handleCanvasClick);
+
+theme_input.onchange = function () {
+	writeConfig();
+	loadTheme();
+	ctx.drawImage(canvas.templateCanvas, 0, 0);
+};
+
+reminder_input.onchange = function () {
+	writeConfig();
+	//TODO
+};
+
+reminder_count_input.onchange = function () {
+	writeConfig();
+	//TODO
+};
+
+data_limit_input.onchange = function () {
+	writeConfig();
+	truncateData(table);
+	window.localStorage.setItem("mood_data", JSON.stringify(mood_data));
+};
+
+data_combine_input.onchange = function () {
+	writeConfig();
+};
