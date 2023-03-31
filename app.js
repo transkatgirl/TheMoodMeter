@@ -13,7 +13,7 @@ const offscreen_ctx = canvas.templateCanvas.getContext("2d");
 const table = document.getElementById("table");
 
 var mood_data = [];
-var config = { theme: 1, maximum_data_points: 900, maximum_graphed_points: 30, minimum_minutes: 2 };
+var config = { theme: 1, maximum_data_points: 900, maximum_graphed_points: 15, minimum_minutes: 2 };
 
 const download_link = document.getElementById("download");
 
@@ -283,7 +283,7 @@ function loadTheme() {
 
 function loadConfig(configString) {
 	if (configString == null) {
-		configString = '{"theme": 1, "maximum_data_points": 900, "maximum_graphed_points": 30, "minimum_minutes": 2}';
+		configString = '{"theme": 1, "maximum_data_points": 900, "maximum_graphed_points": 15, "minimum_minutes": 2}';
 	}
 
 	config = JSON.parse(configString);
@@ -310,12 +310,12 @@ function graphData(items) {
 	let start = Math.max(mood_data.length - items, 0);
 
 	for (var i = start; i < mood_data.length; i++) {
-		let value = 200 * ((mood_data[i].timestamp - mood_data[start].timestamp) / (mood_data[mood_data.length - 1].timestamp - mood_data[start].timestamp));
+		let value = 190 * ((mood_data[i].timestamp - mood_data[start].timestamp) / (mood_data[mood_data.length - 1].timestamp - mood_data[start].timestamp));
 
-		ctx.fillStyle = "rgba(" + value + ",0," + value + ",0.66)";
+		ctx.fillStyle = "rgba(" + value + ",0," + value + ",0.75)";
 
 		if ((i == mood_data.length - 1) && ((Date.now() - mood_data[i].timestamp < 60 * 1000 * config.minimum_minutes) || (config.minimum_minutes == 0))) {
-			ctx.fillStyle = "rgba(255,0,255,0.875)";
+			ctx.fillStyle = "rgba(255,0,255,0.9)";
 		}
 
 		ctx.fillRect((mood_data[i].valence * canvas.width) - (dotSize / 2), ((1 - mood_data[i].arousal) * canvas.height) - (dotSize / 2), dotSize, dotSize);
@@ -351,4 +351,5 @@ data_graph_limit_input.onchange = function () {
 
 data_combine_input.onchange = function () {
 	writeConfig();
+	graphData(config.maximum_graphed_points);
 };
