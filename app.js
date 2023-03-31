@@ -226,8 +226,16 @@ function handleCanvasClick(event) {
 
 	addData(dataT, dataX, dataY);
 
-	graphData(config.maximum_graphed_points);
+	graphData(1);
 
+	setTimeout(handleCanvasAfterClick, 2000);
+
+}
+
+function handleCanvasAfterClick() {
+	if (Date.now() - mood_data[mood_data.length - 1].timestamp > 1900) {
+		graphData(config.maximum_graphed_points);
+	}
 }
 
 function handleDataUpdate(event) {
@@ -309,17 +317,29 @@ function graphData(items) {
 	let dotSize = Math.min(canvas.width, canvas.height) * 0.06;
 	let start = Math.max(mood_data.length - items, 0);
 
-	for (var i = start; i < mood_data.length; i++) {
-		let value = 190 * ((mood_data[i].timestamp - mood_data[start].timestamp) / (mood_data[mood_data.length - 1].timestamp - mood_data[start].timestamp));
+	ctx.lineWidth = Math.min(canvas.width, canvas.height) * 0.006;
 
-		ctx.fillStyle = "rgba(" + value + ",0," + value + ",0.75)";
+	for (var i = start; i < mood_data.length; i++) {
+		let value = 100 * ((mood_data[i].timestamp - mood_data[start].timestamp) / (mood_data[mood_data.length - 1].timestamp - mood_data[start].timestamp));
+
+		value = value + (100 * (i - start) / ((mood_data.length - 1) - start));
+
+		ctx.fillStyle = "rgba(" + value + ",0," + value + ",0.6)";
+		ctx.strokeStyle = "rgba(" + value + ",0," + value + ",0.4)";
 
 		if ((i == mood_data.length - 1) && ((Date.now() - mood_data[i].timestamp < 60 * 1000 * config.minimum_minutes) || (config.minimum_minutes == 0))) {
 			ctx.fillStyle = "rgba(255,0,255,0.9)";
+			ctx.strokeStyle = "rgba(255,0,255,0.4)";
 		}
+
+		ctx.beginPath();
+		ctx.moveTo(mood_data[Math.max(i - 1, start)].valence * canvas.width, (1 - mood_data[Math.max(i - 1, start)].arousal) * canvas.height);
+		ctx.lineTo(mood_data[i].valence * canvas.width, (1 - mood_data[i].arousal) * canvas.height);
+		ctx.stroke();
 
 		ctx.fillRect((mood_data[i].valence * canvas.width) - (dotSize / 2), ((1 - mood_data[i].arousal) * canvas.height) - (dotSize / 2), dotSize, dotSize);
 	}
+
 }
 
 loadConfig(window.localStorage.getItem("config"));
