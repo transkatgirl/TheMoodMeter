@@ -32,6 +32,8 @@ function renderTemplate0(ctx) {
 	ctx.fillRect(canvas.width * 0.5, 0, canvas.width * 0.5, canvas.height * 0.5);
 
 	ctx.lineWidth = Math.min(canvas.width, canvas.height) * 0.005;
+	ctx.strokeStyle = "black";
+	ctx.beginPath();
 	ctx.moveTo(canvas.width * 0.5, 0);
 	ctx.lineTo(canvas.width * 0.5, canvas.height);
 	ctx.moveTo(0, canvas.height * 0.5);
@@ -100,10 +102,57 @@ function renderTemplate1(ctx) {
 	ctx.restore();
 }
 
-// TODO
+// TODO: Add text
 function renderTemplate2(ctx) {
-	ctx.fillStyle = "gray";
-	ctx.fillRect(0, 0, canvas.width, canvas.height);
+	ctx.fillStyle = "firebrick";
+	ctx.fillRect(0, 0, canvas.width * 0.166, canvas.height * 0.5);
+	ctx.fillStyle = "chocolate";
+	ctx.fillRect(canvas.width * 0.166, 0, canvas.width * 0.167, canvas.height * 0.5);
+	ctx.fillStyle = "lightcoral";
+	ctx.fillRect(canvas.width * 0.333, 0, canvas.width * 0.167, canvas.height * 0.5);
+	ctx.fillStyle = "lightsalmon";
+	ctx.fillRect(canvas.width * 0.5, 0, canvas.width * 0.167, canvas.height * 0.5);
+	ctx.fillStyle = "khaki";
+	ctx.fillRect(canvas.width * 0.667, 0, canvas.width * 0.167, canvas.height * 0.5);
+	ctx.fillStyle = "goldenrod";
+	ctx.fillRect(canvas.width * 0.834, 0, canvas.width * 0.166, canvas.height * 0.5);
+	ctx.fillStyle = "cornflowerblue";
+	ctx.fillRect(0, canvas.height * 0.5, canvas.width * 0.166, canvas.height * 0.5);
+	ctx.fillStyle = "cadetblue";
+	ctx.fillRect(canvas.width * 0.166, canvas.height * 0.5, canvas.width * 0.167, canvas.height * 0.5);
+	ctx.fillStyle = "paleturquoise";
+	ctx.fillRect(canvas.width * 0.333, canvas.height * 0.5, canvas.width * 0.167, canvas.height * 0.5);
+	ctx.fillStyle = "darkseagreen";
+	ctx.fillRect(canvas.width * 0.5, canvas.height * 0.5, canvas.width * 0.167, canvas.height * 0.5);
+	ctx.fillStyle = "lightgreen";
+	ctx.fillRect(canvas.width * 0.667, canvas.height * 0.5, canvas.width * 0.167, canvas.height * 0.5);
+	ctx.fillStyle = "darkolivegreen";
+	ctx.fillRect(canvas.width * 0.834, canvas.height * 0.5, canvas.width * 0.166, canvas.height * 0.5);
+
+	ctx.lineWidth = Math.min(canvas.width, canvas.height) * 0.005;
+	ctx.strokeStyle = "white";
+	ctx.beginPath();
+	ctx.moveTo(canvas.width * 0.166, 0);
+	ctx.lineTo(canvas.width * 0.166, canvas.height);
+	ctx.moveTo(canvas.width * 0.333, 0);
+	ctx.lineTo(canvas.width * 0.333, canvas.height);
+	ctx.moveTo(canvas.width * 0.5, 0);
+	ctx.lineTo(canvas.width * 0.5, canvas.height);
+	ctx.moveTo(canvas.width * 0.667, 0);
+	ctx.lineTo(canvas.width * 0.667, canvas.height);
+	ctx.moveTo(canvas.width * 0.834, 0);
+	ctx.lineTo(canvas.width * 0.834, canvas.height);
+	ctx.moveTo(0, canvas.height * 0.166);
+	ctx.lineTo(canvas.width, canvas.height * 0.166);
+	ctx.moveTo(0, canvas.height * 0.333);
+	ctx.lineTo(canvas.width, canvas.height * 0.333);
+	ctx.moveTo(0, canvas.height * 0.5);
+	ctx.lineTo(canvas.width, canvas.height * 0.5);
+	ctx.moveTo(0, canvas.height * 0.667);
+	ctx.lineTo(canvas.width, canvas.height * 0.667);
+	ctx.moveTo(0, canvas.height * 0.834);
+	ctx.lineTo(canvas.width, canvas.height * 0.834);
+	ctx.stroke();
 }
 
 function addTableRow(table, dataT, dataX, dataY) {
@@ -252,6 +301,21 @@ function writeConfig() {
 	config.minimum_minutes = data_combine_input.value;
 
 	window.localStorage.setItem("config", JSON.stringify(config));
+}
+
+function graphData(items) {
+	ctx.drawImage(canvas.templateCanvas, 0, 0);
+
+	let dotSize = Math.min(canvas.width, canvas.height) * 0.06;
+	let start = Math.max(mood_data.length - items, 0);
+
+	for (var i = start; i < mood_data.length; i++) {
+		let value = 255 * ((mood_data[i].timestamp - mood_data[start].timestamp) / (mood_data[mood_data.length - 1].timestamp - mood_data[start].timestamp));
+
+		ctx.fillStyle = "rgba(" + value + ",0," + value + ",0.75)";
+
+		ctx.fillRect((mood_data[i].valence * canvas.width) - (dotSize / 2), ((1 - mood_data[i].arousal) * canvas.height) - (dotSize / 2), dotSize, dotSize);
+	}
 }
 
 loadConfig(window.localStorage.getItem("config"));
