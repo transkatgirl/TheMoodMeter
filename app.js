@@ -13,13 +13,11 @@ const offscreen_ctx = canvas.templateCanvas.getContext("2d");
 const table = document.getElementById("table");
 
 var mood_data = [];
-var config = { theme: 1, reminders: false, reminders_per_day: 3, maximum_data_points: 900, minimum_minutes: 2 };
+var config = { theme: 1, maximum_data_points: 900, minimum_minutes: 2 };
 
 const download_link = document.getElementById("download");
 
 const theme_input = document.getElementById("theme");
-const reminder_input = document.getElementById("enableReminders");
-const reminder_count_input = document.getElementById("reminderAmount");
 const data_limit_input = document.getElementById("maxData");
 const data_combine_input = document.getElementById("minTime");
 
@@ -238,22 +236,18 @@ function loadTheme() {
 
 function loadConfig(configString) {
 	if (configString == null) {
-		configString = '{"theme": 1, "reminders": false, "reminders_per_day": 3, "maximum_data_points": 900, "minimum_minutes": 2}';
+		configString = '{"theme": 1, "maximum_data_points": 900, "minimum_minutes": 2}';
 	}
 
 	config = JSON.parse(configString);
 
 	theme_input.value = config.theme;
-	reminder_input.value = config.reminders;
-	reminder_count_input.value = config.reminders_per_day;
 	data_limit_input.value = config.maximum_data_points;
 	data_combine_input.value = config.minimum_minutes;
 }
 
 function writeConfig() {
 	config.theme = theme_input.value;
-	config.reminders = reminder_input.value;
-	config.reminders_per_day = reminder_count_input.value;
 	config.maximum_data_points = data_limit_input.value;
 	config.minimum_minutes = data_combine_input.value;
 
@@ -273,16 +267,6 @@ theme_input.onchange = function () {
 	writeConfig();
 	loadTheme();
 	ctx.drawImage(canvas.templateCanvas, 0, 0);
-};
-
-reminder_input.onchange = function () {
-	writeConfig();
-	//TODO
-};
-
-reminder_count_input.onchange = function () {
-	writeConfig();
-	//TODO
 };
 
 data_limit_input.onchange = function () {

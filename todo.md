@@ -4,5 +4,5 @@
 - add data visualization
 - ui improvements
 	- mobile ui
-- push notifications
-- opengraph
+- add opengraph metadata
+- platform testing
