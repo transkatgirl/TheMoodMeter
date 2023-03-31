@@ -1,0 +1,15 @@
+{
+	"background_color": "white",
+	"description": "Track your moods using a popular mood chart.",
+	"display": "standalone",
+	"icons": [
+		{
+			"src": "apple-touch-icon.png",
+			"sizes": "192x192",
+			"type": "image/png"
+		}
+	],
+	"name": "The Mood Meter",
+	"short_name": "Mood Meter",
+	"start_url": "/index.html"
+}

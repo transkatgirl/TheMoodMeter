@@ -1,0 +1,68 @@
+body {
+	font-family: sans-serif;
+}
+
+.container {
+	display: flex;
+}
+
+.vertical {
+	writing-mode: vertical-rl;
+	text-orientation: mixed;
+}
+
+.hidden {
+	visibility: hidden;
+}
+
+canvas {
+	width: 40%;
+	/*border: 0.2em solid black;*/
+}
+
+table,
+details {
+	border-spacing: 0;
+	border: 2px solid black;
+	border-radius: 4px;
+	margin: 0.5em;
+}
+
+th,
+td {
+	padding: 0.5em
+}
+
+td:not(:last-child),
+th:not(:last-child) {
+	border-right: 2px solid black;
+}
+
+tr:not(:last-child) th,
+tr:not(:last-child) td {
+	border-bottom: 2px solid black;
+}
+
+details {
+	padding: 0.5em 0.5em 0;
+	width: fit-content;
+}
+
+summary {
+	font-weight: bold;
+	margin: -0.5em -0.5em 0;
+	padding: 0.5em;
+}
+
+details[open] {
+	padding: 0.5em;
+}
+
+details[open] summary {
+	border-bottom: 2px solid black;
+	margin-bottom: 0.5em;
+}
+
+hr {
+	border: 1px solid black;
+}

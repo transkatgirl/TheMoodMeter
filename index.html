@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<link rel=stylesheet href="style.css">
+		<script async defer src="app.js"></script>
+		<link rel="icon" sizes="48x48" href="favicon.png">
+		<link rel="icon" sizes="192x192" href="apple-touch-icon.png">
+		<link rel="manifest" href="manifest.webmanifest">
+		<meta name=viewport content="width=device-width,initial-scale=1">
+		<title>The Mood Meter</title>
+		<meta name=description content="Track your moods using a popular mood chart.">
+	</head>
+
+	<body>
+		<h1>The Mood Meter (WIP)</h1>
+		<span class="vertical"> High Energy to Low energy</span>
+		<canvas id="canvas" height="2048" width="2048"></canvas>
+		<br />
+		<span class="vertical hidden">a</span>
+		<span>Unpleasant to Pleasant</span>
+		<br />
+		<details>
+			<summary>Settings</summary>
+			<h3>Appearance</h3>
+			<p>TODO</p>
+			<hr />
+			<h3>Data</h3>
+			<button onclick="clearData()">Clear All</button>
+			<button onclick="handleFileDownload()">Export</button>
+			<input type="file" onchange="handleFileUpload()" />
+			<a id="download"></a>
+		</details>
+		<h2>Recorded moods</h2>
+		<table id="table">
+			<tr>
+				<th>Date</th>
+				<th>Time</th>
+				<th>Pleasantness</th>
+				<th>Energy</th>
+			</tr>
+		</table>
+	</body>
+
+</html>
