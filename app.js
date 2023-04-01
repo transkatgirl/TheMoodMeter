@@ -13,14 +13,16 @@ const offscreen_ctx = canvas.templateCanvas.getContext("2d");
 const table = document.getElementById("table");
 
 var mood_data = [];
-var config = { theme: 1, maximum_data_points: 900, maximum_graphed_points: 15, minimum_minutes: 2 };
+var config = { settings_open: false, theme: "1", maximum_data_points: 900, maximum_graphed_points: 15, minimum_minutes: 2, data_hide_time: 2.5 };
 
 const download_link = document.getElementById("download");
 
+const settings_menu = document.getElementById("settings");
 const theme_input = document.getElementById("theme");
 const data_limit_input = document.getElementById("maxData");
 const data_graph_limit_input = document.getElementById("maxGraphData");
 const data_combine_input = document.getElementById("minTime");
+const data_hide_input = document.getElementById("hideTime");
 
 function renderTemplate0(ctx) {
 	ctx.fillStyle = "firebrick";
@@ -226,14 +228,18 @@ function handleCanvasClick(event) {
 
 	addData(dataT, dataX, dataY);
 
-	graphData(1);
+	if (config.data_hide_time > 0) {
+		graphData(1);
 
-	setTimeout(handleCanvasAfterClick, 2000);
+		setTimeout(handleCanvasAfterClick, config.data_hide_time * 1000);
+	} else {
+		graphData(config.maximum_graphed_points);
+	}
 
 }
 
 function handleCanvasAfterClick() {
-	if (Date.now() - mood_data[mood_data.length - 1].timestamp > 1900) {
+	if (Date.now() - mood_data[mood_data.length - 1].timestamp > ((config.data_hide_time * 1000) - 100)) {
 		graphData(config.maximum_graphed_points);
 	}
 }
@@ -291,22 +297,30 @@ function loadTheme() {
 
 function loadConfig(configString) {
 	if (configString == null) {
-		configString = '{"theme": 1, "maximum_data_points": 900, "maximum_graphed_points": 15, "minimum_minutes": 2}';
+		configString = '{"settings_open": false, "theme": "1", "maximum_data_points": 900, "maximum_graphed_points": 15, "minimum_minutes": 2, "data_hide_time": 2.5}';
 	}
 
 	config = JSON.parse(configString);
 
+	if (config.settings_open) {
+		settings_menu.setAttribute("open", "");
+	} else {
+		settings_menu.removeAttribute("open");
+	}
 	theme_input.value = config.theme;
 	data_limit_input.value = config.maximum_data_points;
 	data_graph_limit_input.value = config.maximum_graphed_points;
 	data_combine_input.value = config.minimum_minutes;
+	data_hide_input.value = config.data_hide_time;
 }
 
 function writeConfig() {
+	config.settings_open = settings_menu.hasAttribute("open");
 	config.theme = theme_input.value;
 	config.maximum_data_points = data_limit_input.value;
 	config.maximum_graphed_points = data_graph_limit_input.value;
 	config.minimum_minutes = data_combine_input.value;
+	config.data_hide_time = data_hide_input.value;
 
 	window.localStorage.setItem("config", JSON.stringify(config));
 }
@@ -351,6 +365,10 @@ loadTheme();
 graphData(config.maximum_graphed_points);
 canvas.addEventListener("click", handleCanvasClick);
 
+settings.addEventListener("toggle", (event) => {
+	writeConfig();
+});
+
 theme_input.onchange = function () {
 	writeConfig();
 	loadTheme();
@@ -370,6 +388,11 @@ data_graph_limit_input.onchange = function () {
 };
 
 data_combine_input.onchange = function () {
+	writeConfig();
+	graphData(config.maximum_graphed_points);
+};
+
+data_hide_input.onchange = function () {
 	writeConfig();
 	graphData(config.maximum_graphed_points);
 };
