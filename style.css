@@ -16,7 +16,7 @@ body {
 }
 
 canvas {
-	width: 40%;
+	max-width: 500px;
 	/*border: 0.2em solid black;*/
 }
 
@@ -65,4 +65,17 @@ details[open] summary {
 
 hr {
 	border: 1px solid black;
+}
+
+@media screen and (max-width: 600px) {
+	canvas {
+		width: 90%;
+	}
+
+	table {
+		display: inline-block;
+		overflow: auto;
+		max-width: 95%;
+		max-height: 400px;
+	}
 }
