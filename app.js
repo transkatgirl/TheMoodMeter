@@ -353,6 +353,17 @@ function graphData(items) {
 
 		ctx.fillRect((mood_data[i].valence * canvas.width) - (dotSize / 2), ((1 - mood_data[i].arousal) * canvas.height) - (dotSize / 2), dotSize, dotSize);
 	}
+}
+
+function heatmapData() {
+	ctx.drawImage(canvas.templateCanvas, 0, 0);
+	let dotSize = Math.min(canvas.width, canvas.height) * 0.2;
+
+	ctx.fillStyle = "rgba(96,0,96," + Math.min(Math.max(0.2 / Math.log10(mood_data.length), 0.01), 0.75) + ")";
+
+	for (var i = 0; i < mood_data.length; i++) {
+		ctx.fillRect((mood_data[i].valence * canvas.width) - (dotSize / 2), ((1 - mood_data[i].arousal) * canvas.height) - (dotSize / 2), dotSize, dotSize);
+	}
 
 }
 

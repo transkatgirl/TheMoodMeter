@@ -27,28 +27,31 @@
 			<label>Theme: </label>
 			<select id="theme">
 				<option value="0">Basic Chart</option>
-				<option value="1" selected>Original Mood Meter</option>
+				<option value="1">Original Mood Meter</option>
 				<option value="2">Extended Mood Meter</option>
 			</select>
 			<p></p>
 			<hr />
 			<h3>Data</h3>
 			<label>Maximum data points: </label>
-			<input type="number" id="maxData" min="1" value="900"><br />
-			<label>Maximum graphed data points: </label>
-			<input type="number" id="maxGraphData" min="1" value="15"><br />
+			<input type="number" id="maxData" min="1"><br />
 			<label>Replace data points fewer than </label>
-			<input type="number" id="minTime" min="0" value="2"><label> minutes apart</label><br />
-			<label>Hide data points for </label>
-			<input type="number" id="hideTime" min="0" max="10" step="0.1" value="2.5"><label> seconds after
-				click</label><br />
+			<input type="number" id="minTime" min="0"><label> minutes apart</label><br />
 			<p></p>
 			<button onclick="clearData()">Clear All</button>
 			<button onclick="handleFileDownload()">Export</button>
 			<input type="file" onchange="handleFileUpload()" />
 			<a id="download"></a>
+			<hr />
+			<h3>Graphing</h3>
+			<label>Maximum graphed points: </label>
+			<input type="number" id="maxGraphData" min="1"><br />
+			<label>Hide graphed points for </label>
+			<input type="number" id="hideTime" min="0" max="10" step="0.1"><label> seconds after
+				click</label><br />
 			<p></p>
-			<button onclick="graphData(config.maximum_data_points)">Graph All Data (No Limit)</button>
+			<button onclick="heatmapData()">Graph All Data as Heatmap</button>
+			<button onclick="graphData(config.maximum_graphed_points)">Redraw Graph</button>
 			<button onclick="graphData(0)">Clear Graph (Hide Data)</button>
 			<p></p>
 		</details>
