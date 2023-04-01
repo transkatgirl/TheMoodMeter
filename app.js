@@ -159,7 +159,7 @@ function renderTemplate2(ctx) {
 }
 
 function addTableRow(table, dataT, dataX, dataY) {
-	let row = table.insertRow();
+	let row = table.insertRow(1);
 
 	row.insertCell().innerHTML = new Date(dataT).toLocaleDateString();
 	row.insertCell().innerHTML = new Date(dataT).toLocaleTimeString();
@@ -175,7 +175,7 @@ function clearTable(table) {
 
 function addData(dataT, dataX, dataY) {
 	if ((mood_data.length > 0) && (dataT - mood_data[mood_data.length - 1].timestamp < 60 * 1000 * config.minimum_minutes)) {
-		table.deleteRow(table.rows.length - 1);
+		table.deleteRow(1);
 		mood_data.pop();
 	}
 
@@ -188,7 +188,7 @@ function addData(dataT, dataX, dataY) {
 
 function truncateData(table) {
 	while (mood_data.length > config.maximum_data_points) {
-		table.deleteRow(1);
+		table.deleteRow(table.rows.length - 1);
 		mood_data.shift();
 	}
 }
@@ -339,11 +339,11 @@ function graphData(items) {
 		value = value + (100 * (i - start) / ((mood_data.length - 1) - start));
 
 		ctx.fillStyle = "rgba(" + value + ",0," + value + ",0.6)";
-		ctx.strokeStyle = "rgba(" + value + ",0," + value + ",0.4)";
+		ctx.strokeStyle = "rgba(" + value + ",0," + value + ",0.5)";
 
 		if ((i == mood_data.length - 1) && ((Date.now() - mood_data[i].timestamp < 60 * 1000 * config.minimum_minutes) || (config.minimum_minutes == 0))) {
 			ctx.fillStyle = "rgba(255,0,255,0.9)";
-			ctx.strokeStyle = "rgba(255,0,255,0.4)";
+			ctx.strokeStyle = "rgba(255,0,255,0.5)";
 		}
 
 		ctx.beginPath();

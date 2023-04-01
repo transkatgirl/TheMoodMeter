@@ -15,7 +15,8 @@ body {
 	visibility: hidden;
 }
 
-canvas {
+canvas,
+details {
 	max-width: 500px;
 	/*border: 0.2em solid black;*/
 }
