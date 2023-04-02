@@ -106,7 +106,7 @@ function renderTemplate1(ctx) {
 	ctx.restore();
 }
 
-// TODO: Add text
+// TODO: Improve readability
 function renderTemplate2(ctx) {
 	ctx.fillStyle = "firebrick";
 	ctx.fillRect(0, 0, canvas.width * 0.166, canvas.height * 0.5);
@@ -157,6 +157,104 @@ function renderTemplate2(ctx) {
 	ctx.moveTo(0, canvas.height * 0.834);
 	ctx.lineTo(canvas.width, canvas.height * 0.834);
 	ctx.stroke();
+
+	ctx.fillStyle = "black";
+	ctx.textAlign = "center";
+	ctx.textBaseline = "middle";
+
+	let textSize = Math.min(canvas.width, canvas.height) * 0.021;
+	ctx.font = textSize + "px sans-serif";
+	ctx.fillText("I am a", canvas.width * 0.083, (canvas.height * 0.083) - (textSize + (textSize / 2)));
+	ctx.fillText("genuine", canvas.width * 0.083, (canvas.height * 0.083) - (textSize / 2));
+	ctx.fillText("threat to", canvas.width * 0.083, (canvas.height * 0.083) + (textSize / 2));
+	ctx.fillText("society", canvas.width * 0.083, (canvas.height * 0.083) + (textSize + (textSize / 2)));
+	ctx.fillText("(In Minecraft)", canvas.width * 0.2495, (canvas.height * 0.083));
+	ctx.fillText("Goblin", canvas.width * 0.4165, (canvas.height * 0.083) - (textSize / 2));
+	ctx.fillText("Mode", canvas.width * 0.4165, (canvas.height * 0.083) + (textSize / 2));
+	ctx.fillText("Silly", canvas.width * 0.5835, (canvas.height * 0.083) - (textSize / 2));
+	ctx.fillText("Goose", canvas.width * 0.5835, (canvas.height * 0.083) + (textSize / 2));
+	ctx.fillText("Let's", canvas.width * 0.7505, (canvas.height * 0.083) - (textSize / 2));
+	ctx.fillText("gooooooo", canvas.width * 0.7505, (canvas.height * 0.083) + (textSize / 2));
+	ctx.fillText("LETS FUCKING", canvas.width * 0.917, (canvas.height * 0.083) - (textSize / 2));
+	ctx.fillText("GOOOOOOOO", canvas.width * 0.917, (canvas.height * 0.083) + (textSize / 2));
+
+	ctx.fillText("You've got to", canvas.width * 0.083, (canvas.height * 0.2495) - textSize);
+	ctx.fillText("be fucking", canvas.width * 0.083, (canvas.height * 0.2495));
+	ctx.fillText("kidding me", canvas.width * 0.083, (canvas.height * 0.2495) + textSize);
+	ctx.fillText("FUCK", canvas.width * 0.2495, (canvas.height * 0.2495));
+	ctx.fillText("Fuck it", canvas.width * 0.4165, (canvas.height * 0.2495) - (textSize / 2));
+	ctx.fillText("We ball", canvas.width * 0.4165, (canvas.height * 0.2495) + (textSize / 2));
+	ctx.fillText("Bitches love", canvas.width * 0.5835, (canvas.height * 0.2495) - (textSize / 2));
+	ctx.fillText("my mustache", canvas.width * 0.5835, (canvas.height * 0.2495) + (textSize / 2));
+	ctx.fillText("We're so", canvas.width * 0.7505, (canvas.height * 0.2495) - (textSize / 2));
+	ctx.fillText("back", canvas.width * 0.7505, (canvas.height * 0.2495) + (textSize / 2));
+	ctx.fillText("We're so", canvas.width * 0.917, (canvas.height * 0.2495) - (textSize / 2));
+	ctx.fillText("fucking back", canvas.width * 0.917, (canvas.height * 0.2495) + (textSize / 2));
+
+	ctx.fillText("I hate", canvas.width * 0.083, (canvas.height * 0.4165) - (textSize / 2));
+	ctx.fillText("women", canvas.width * 0.083, (canvas.height * 0.4165) + (textSize / 2));
+	ctx.fillText("I don't think we", canvas.width * 0.2495, (canvas.height * 0.4165) - textSize);
+	ctx.fillText("making it out of", canvas.width * 0.2495, (canvas.height * 0.4165));
+	ctx.fillText("the hood bro", canvas.width * 0.2495, (canvas.height * 0.4165) + textSize);
+	ctx.fillText("*Internal", canvas.width * 0.4165, (canvas.height * 0.4165) - (textSize / 2));
+	ctx.fillText("screaming*", canvas.width * 0.4165, (canvas.height * 0.4165) + (textSize / 2));
+	ctx.fillText("It is", canvas.width * 0.5835, (canvas.height * 0.4165) - textSize);
+	ctx.fillText("what it", canvas.width * 0.5835, (canvas.height * 0.4165));
+	ctx.fillText("is", canvas.width * 0.5835, (canvas.height * 0.4165) + textSize);
+	ctx.fillText("We're gonna", canvas.width * 0.7505, (canvas.height * 0.4165) - (textSize / 2));
+	ctx.fillText("make it bro", canvas.width * 0.7505, (canvas.height * 0.4165) + (textSize / 2));
+	ctx.fillText("Modelo", canvas.width * 0.917, (canvas.height * 0.4165) - (textSize / 2));
+	ctx.fillText("time", canvas.width * 0.917, (canvas.height * 0.4165) + (textSize / 2));
+
+	ctx.fillText("It's the kind", canvas.width * 0.083, (canvas.height * 0.5835) - (textSize + (textSize / 2)));
+	ctx.fillText("of tired that", canvas.width * 0.083, (canvas.height * 0.5835) - (textSize / 2));
+	ctx.fillText("sleep won't", canvas.width * 0.083, (canvas.height * 0.5835) + (textSize / 2));
+	ctx.fillText("fix...", canvas.width * 0.083, (canvas.height * 0.5835) + (textSize + (textSize / 2)));
+	ctx.fillText("It's just", canvas.width * 0.2495, (canvas.height * 0.5835) - (textSize + (textSize / 2)));
+	ctx.fillText("one of", canvas.width * 0.2495, (canvas.height * 0.5835) - (textSize / 2));
+	ctx.fillText("those", canvas.width * 0.2495, (canvas.height * 0.5835) + (textSize / 2));
+	ctx.fillText("days...", canvas.width * 0.2495, (canvas.height * 0.5835) + (textSize + (textSize / 2)));
+	ctx.fillText("yeah bro, I", canvas.width * 0.4165, (canvas.height * 0.5835) - textSize);
+	ctx.fillText("just need", canvas.width * 0.4165, (canvas.height * 0.5835));
+	ctx.fillText("some sleep", canvas.width * 0.4165, (canvas.height * 0.5835) + textSize);
+	ctx.fillText("It really do", canvas.width * 0.5835, (canvas.height * 0.5835) - textSize);
+	ctx.fillText("be like that", canvas.width * 0.5835, (canvas.height * 0.5835));
+	ctx.fillText("sometimes", canvas.width * 0.5835, (canvas.height * 0.5835) + textSize);
+	ctx.fillText("Straight", canvas.width * 0.7505, (canvas.height * 0.5835) - (textSize / 2));
+	ctx.fillText("chilling", canvas.width * 0.7505, (canvas.height * 0.5835) + (textSize / 2));
+	ctx.fillText("\"neat\"", canvas.width * 0.917, (canvas.height * 0.5835));
+
+	ctx.fillText("My", canvas.width * 0.083, (canvas.height * 0.7505) - (textSize + (textSize / 2)));
+	ctx.fillText("mom", canvas.width * 0.083, (canvas.height * 0.7505) - (textSize / 2));
+	ctx.fillText("would", canvas.width * 0.083, (canvas.height * 0.7505) + (textSize / 2));
+	ctx.fillText("be sad", canvas.width * 0.083, (canvas.height * 0.7505) + (textSize + (textSize / 2)));
+	ctx.fillText("It's so", canvas.width * 0.2495, (canvas.height * 0.7505) - (textSize / 2));
+	ctx.fillText("over", canvas.width * 0.2495, (canvas.height * 0.7505) + (textSize / 2));
+	ctx.fillText("This time", canvas.width * 0.4165, (canvas.height * 0.7505) - textSize);
+	ctx.fillText("I'm really", canvas.width * 0.4165, (canvas.height * 0.7505));
+	ctx.fillText("gonna do it", canvas.width * 0.4165, (canvas.height * 0.7505) + textSize);
+	ctx.fillText("Anotha day,", canvas.width * 0.5835, (canvas.height * 0.7505) - (textSize / 2));
+	ctx.fillText("anotha dolla", canvas.width * 0.5835, (canvas.height * 0.7505) + (textSize / 2));
+	ctx.fillText("\"cool\"", canvas.width * 0.7505, (canvas.height * 0.7505));
+	ctx.fillText("We", canvas.width * 0.917, (canvas.height * 0.7505) - (textSize / 2));
+	ctx.fillText("vibing", canvas.width * 0.917, (canvas.height * 0.7505) + (textSize / 2));
+
+	ctx.fillText("I geuss", canvas.width * 0.083, (canvas.height * 0.917) - (textSize + (textSize / 2)));
+	ctx.fillText("that's it", canvas.width * 0.083, (canvas.height * 0.917) - (textSize / 2));
+	ctx.fillText("(Ronnie", canvas.width * 0.083, (canvas.height * 0.917) + (textSize / 2));
+	ctx.fillText("McNutt)", canvas.width * 0.083, (canvas.height * 0.917) + (textSize + (textSize / 2)));
+	ctx.fillText("My dog", canvas.width * 0.2495, (canvas.height * 0.917) - textSize);
+	ctx.fillText("wouldn't", canvas.width * 0.2495, (canvas.height * 0.917));
+	ctx.fillText("understand", canvas.width * 0.2495, (canvas.height * 0.917) + textSize);
+	ctx.fillText("One day", canvas.width * 0.4165, (canvas.height * 0.917) - textSize);
+	ctx.fillText("something", canvas.width * 0.4165, (canvas.height * 0.917));
+	ctx.fillText("will kill me", canvas.width * 0.4165, (canvas.height * 0.917) + textSize);
+	ctx.fillText("Comfortably", canvas.width * 0.5835, (canvas.height * 0.917) - (textSize / 2));
+	ctx.fillText("numb", canvas.width * 0.5835, (canvas.height * 0.917) + (textSize / 2));
+	ctx.fillText("\"aight\"", canvas.width * 0.7505, (canvas.height * 0.917));
+	ctx.fillText("I'm", canvas.width * 0.917, (canvas.height * 0.917) - textSize);
+	ctx.fillText("Bing", canvas.width * 0.917, (canvas.height * 0.917));
+	ctx.fillText("chilling", canvas.width * 0.917, (canvas.height * 0.917) + textSize);
 }
 
 function addTableRow(table, dataT, dataX, dataY) {
