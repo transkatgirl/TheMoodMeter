@@ -1,4 +1,4 @@
-const version = "4";
+const version = "5";
 
 const app_files = [
 	"./",
@@ -37,6 +37,7 @@ self.addEventListener("fetch", (e) => {
 
 self.addEventListener("activate", (e) => {
 	e.waitUntil(
+		clients.claim()
 		caches.keys().then((keyList) => {
 			return Promise.all(
 				keyList.map((key) => {
