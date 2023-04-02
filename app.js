@@ -280,7 +280,6 @@ function handleFileUpload() {
 		() => {
 			loadData(reader.result, true);
 			graphData(config.maximum_graphed_points);
-			document.querySelector("input[type=file]").value = '';
 		},
 		false
 	);

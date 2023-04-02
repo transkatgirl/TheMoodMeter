@@ -38,9 +38,10 @@
 			<label>Replace data points fewer than </label>
 			<input type="number" id="minTime" min="0"><label> minutes apart</label><br />
 			<p></p>
-			<button onclick="clearData()">Clear All</button>
-			<button onclick="handleFileDownload()">Export</button>
-			<input type="file" onchange="handleFileUpload()" />
+			<button onclick="clearData()">Clear All Data</button>
+			<button onclick="handleFileDownload()">Export Data to JSON</button>
+			<button onclick='document.getElementById("upload").click();''>Import Data from JSON</button>
+			<input id="upload" type="file" onchange="handleFileUpload()" />
 			<a id="download"></a>
 			<p></p>
 			<hr />

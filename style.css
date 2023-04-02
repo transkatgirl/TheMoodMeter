@@ -73,6 +73,21 @@ hr {
 	border: 1px solid black;
 }
 
+#upload {
+	display: none;
+}
+
+button,
+input,
+select {
+	border: 2px solid black;
+	border-radius: 4px;
+	background-color: gainsboro;
+	padding: .2em .4em;
+	margin: .2em 0;
+	font-size: .8em;
+}
+
 @media screen and (max-width: 600px) {
 	canvas {
 		width: 90%;
