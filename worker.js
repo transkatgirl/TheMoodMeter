@@ -1,14 +1,14 @@
 const version = "1";
 
 const app_files = [
-	"/",
-	"/index.html",
-	"/app.js",
-	"/style.css",
-	"/favicon.ico",
-	"/favicon.png",
-	"/apple-touch-icon.png",
-	"/manifest.webmanifest"
+	"./",
+	"index.html",
+	"app.js",
+	"style.css",
+	"favicon.ico",
+	"favicon.png",
+	"apple-touch-icon.png",
+	"manifest.webmanifest"
 ];
 
 self.addEventListener("install", (e) => {
