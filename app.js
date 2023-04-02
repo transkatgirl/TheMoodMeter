@@ -106,7 +106,6 @@ function renderTemplate1(ctx) {
 	ctx.restore();
 }
 
-// TODO: Improve readability
 function renderTemplate2(ctx) {
 	ctx.fillStyle = "firebrick";
 	ctx.fillRect(0, 0, canvas.width * 0.166, canvas.height * 0.5);
