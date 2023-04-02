@@ -13,10 +13,11 @@ const offscreen_ctx = canvas.templateCanvas.getContext("2d");
 const table = document.getElementById("table");
 
 var mood_data = [];
-var config = { settings_open: false, theme: "1", maximum_data_points: 900, maximum_graphed_points: 15, minimum_minutes: 2, data_hide_time: 2.5 };
+var config = { moods_open: true, settings_open: false, theme: "1", maximum_data_points: 900, maximum_graphed_points: 15, minimum_minutes: 2, data_hide_time: 2.5 };
 
 const download_link = document.getElementById("download");
 
+const mood_menu = document.getElementById("moods");
 const settings_menu = document.getElementById("settings");
 const theme_input = document.getElementById("theme");
 const data_limit_input = document.getElementById("maxData");
@@ -304,11 +305,16 @@ function loadTheme() {
 
 function loadConfig(configString) {
 	if (configString == null) {
-		configString = '{"settings_open": false, "theme": "1", "maximum_data_points": 900, "maximum_graphed_points": 15, "minimum_minutes": 2, "data_hide_time": 2.5}';
+		configString = '{"moods_open": true, "settings_open": false, "theme": "1", "maximum_data_points": 900, "maximum_graphed_points": 15, "minimum_minutes": 2, "data_hide_time": 2.5}';
 	}
 
 	config = JSON.parse(configString);
 
+	if (config.moods_open) {
+		mood_menu.setAttribute("open", "");
+	} else {
+		mood_menu.removeAttribute("open");
+	}
 	if (config.settings_open) {
 		settings_menu.setAttribute("open", "");
 	} else {
@@ -322,6 +328,7 @@ function loadConfig(configString) {
 }
 
 function writeConfig() {
+	config.moods_open = mood_menu.hasAttribute("open");
 	config.settings_open = settings_menu.hasAttribute("open");
 	config.theme = theme_input.value;
 	config.maximum_data_points = data_limit_input.value;
@@ -383,7 +390,11 @@ loadTheme();
 graphData(config.maximum_graphed_points);
 canvas.addEventListener("click", handleCanvasClick);
 
-settings.addEventListener("toggle", (event) => {
+mood_menu.addEventListener("toggle", (event) => {
+	writeConfig();
+});
+
+settings_menu.addEventListener("toggle", (event) => {
 	writeConfig();
 });
 

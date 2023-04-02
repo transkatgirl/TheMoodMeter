@@ -1,5 +1,5 @@
 body {
-	font: 1.1em sans-serif;
+	font: 1em sans-serif;
 }
 
 .container {
@@ -9,6 +9,7 @@ body {
 .vertical {
 	writing-mode: vertical-rl;
 	text-orientation: mixed;
+	display: contents;
 }
 
 .hidden {
@@ -20,9 +21,7 @@ details {
 	max-width: 500px;
 }
 
-table,
 details {
-	border-spacing: 0;
 	border: 2px solid black;
 	border-radius: 4px;
 	margin: 0.5em;
@@ -51,7 +50,8 @@ details {
 table {
 	overflow: auto;
 	display: inline-block;
-	max-height: 450px;
+	max-height: 500px;
+	border-spacing: 0;
 }
 
 summary {
@@ -88,12 +88,34 @@ select {
 	font-size: .8em;
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (min-width: 1000px) {
+	details {
+		float: right;
+	}
+}
+
+@media screen and (min-width: 1300px) {
+	.meter {
+		float: left;
+	}
+}
+
+@media screen and (max-width: 550px) {
 	canvas {
 		width: 90%;
 	}
 
 	table {
-		max-width: 95%;
+		max-width: 100%;
+	}
+
+	details {
+		max-width: 100%;
+	}
+}
+
+@media screen and (max-width: 425px) {
+	details {
+		width: unset;
 	}
 }

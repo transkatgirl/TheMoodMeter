@@ -14,13 +14,15 @@
 	</head>
 
 	<body>
-		<h1>The Mood Meter (WIP)</h1>
-		<span class="vertical"> High Energy to Low energy</span>
-		<canvas id="canvas" height="2048" width="2048"></canvas>
-		<br />
-		<span class="vertical hidden">a</span>
-		<span>Unpleasant to Pleasant</span>
-		<br />
+		<div class="meter">
+			<h1>The Mood Meter (WIP)</h1>
+			<span class="vertical"> High Energy to Low energy</span>
+			<canvas id="canvas" height="2048" width="2048"></canvas>
+			<br />
+			<span class="vertical hidden">a</span>
+			<span>Unpleasant to Pleasant</span>
+			<br />
+		</div>
 		<details id="settings">
 			<summary>Settings</summary>
 			<h3>Appearance</h3>
@@ -58,15 +60,17 @@
 			<button onclick="handleGraphDownload()">Download Graph Image</button>
 			<p></p>
 		</details>
-		<h2>Recorded moods</h2>
-		<table id="table">
-			<tr>
-				<th>Date</th>
-				<th>Time</th>
-				<th>Pleasantness</th>
-				<th>Energy</th>
-			</tr>
-		</table>
+		<details id="moods">
+			<summary>Recorded moods</summary>
+			<table id="table">
+				<tr>
+					<th>Date</th>
+					<th>Time</th>
+					<th>Pleasantness</th>
+					<th>Energy</th>
+				</tr>
+			</table>
+		</details>
 	</body>
 
 </html>

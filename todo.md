@@ -1,5 +1,7 @@
 # stuff to do
 
+- finish themes
 - ui improvements
-- add opengraph metadata
+	- improve graph axis labling
+	- add button to remove last graphed point
 - platform testing
