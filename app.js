@@ -183,7 +183,7 @@ function renderTemplate2(ctx) {
 	ctx.fillText("kidding me", canvas.width * 0.083, (canvas.height * 0.2495) + textSize);
 	ctx.fillText("FUCK", canvas.width * 0.2495, (canvas.height * 0.2495));
 	ctx.fillText("Fuck it", canvas.width * 0.4165, (canvas.height * 0.2495) - (textSize / 2));
-	ctx.fillText("We ball", canvas.width * 0.4165, (canvas.height * 0.2495) + (textSize / 2));
+	ctx.fillText("we ball", canvas.width * 0.4165, (canvas.height * 0.2495) + (textSize / 2));
 	ctx.fillText("Bitches love", canvas.width * 0.5835, (canvas.height * 0.2495) - (textSize / 2));
 	ctx.fillText("my mustache", canvas.width * 0.5835, (canvas.height * 0.2495) + (textSize / 2));
 	ctx.fillText("We're so", canvas.width * 0.7505, (canvas.height * 0.2495) - (textSize / 2));
