@@ -37,7 +37,6 @@ self.addEventListener("fetch", (e) => {
 
 self.addEventListener("activate", (e) => {
 	e.waitUntil(
-		clients.claim()
 		caches.keys().then((keyList) => {
 			return Promise.all(
 				keyList.map((key) => {
