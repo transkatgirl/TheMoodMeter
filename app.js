@@ -1,5 +1,4 @@
-// UNCOMMENT TO ALLOW OFFLINE USAGE
-//navigator.serviceWorker.register("/worker.js");
+navigator.serviceWorker.register("/worker.js");
 
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
