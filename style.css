@@ -9,7 +9,6 @@ body {
 .vertical {
 	writing-mode: vertical-rl;
 	text-orientation: mixed;
-	display: contents;
 }
 
 .hidden {
@@ -88,6 +87,17 @@ select {
 	font-size: .8em;
 }
 
+.meter {
+	display: grid;
+	grid-template-columns: 1em 1fr;
+	width: min-content;
+}
+
+span {
+	text-align: center;
+	padding: .1em;
+}
+
 @media screen and (min-width: 1000px) {
 	details {
 		float: right;
@@ -102,7 +112,11 @@ select {
 
 @media screen and (max-width: 550px) {
 	canvas {
-		width: 90%;
+		width: 100%;
+	}
+
+	.meter {
+		width: 97.5%;
 	}
 
 	table {
