@@ -215,10 +215,12 @@ function loadData(dataString, saveData) {
 }
 
 function clearData() {
-	mood_data = [];
-	window.localStorage.removeItem("mood_data");
-	clearTable(table);
-	ctx.drawImage(canvas.templateCanvas, 0, 0);
+	if (window.confirm("Do you really want to clear all recorded mood data?")) {
+		mood_data = [];
+		window.localStorage.removeItem("mood_data");
+		clearTable(table);
+		ctx.drawImage(canvas.templateCanvas, 0, 0);
+	}
 }
 
 function handleCanvasClick(event) {
@@ -260,6 +262,12 @@ function handleFileDownload() {
 
 	download_link.download = "mood_data-" + Date.now() + ".json";
 	download_link.href = URL.createObjectURL(blob);
+	download_link.click();
+}
+
+function handleGraphDownload() {
+	download_link.download = "mood_data-" + Date.now() + ".png";
+	download_link.href = canvas.toDataURL('image/png');
 	download_link.click();
 }
 
@@ -387,6 +395,13 @@ theme_input.onchange = function () {
 };
 
 data_limit_input.onchange = function () {
+	if (mood_data.length - 10 > data_limit_input.value) {
+		if (!(window.confirm("Do you really want to remove " + (mood_data.length - data_limit_input.value) + " data points?"))) {
+			data_limit_input.value = config.maximum_data_points;
+			return;
+		}
+	}
+
 	writeConfig();
 	truncateData(table);
 	graphData(config.maximum_graphed_points);

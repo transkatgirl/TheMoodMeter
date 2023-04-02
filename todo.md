@@ -1,6 +1,6 @@
 # stuff to do
 
-- add button to download graph
 - ui improvements
+	- improve settings menu on safari (macos/ios)
 - add opengraph metadata
 - platform testing
