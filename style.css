@@ -85,6 +85,7 @@ select {
 	padding: .2em .4em;
 	margin: .2em 0;
 	font-size: .8em;
+	color: black;
 }
 
 .meter {
