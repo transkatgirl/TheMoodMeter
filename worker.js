@@ -1,4 +1,4 @@
-const version = "7";
+const version = "8";
 
 const app_files = [
 	"./",
