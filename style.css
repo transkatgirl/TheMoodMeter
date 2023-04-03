@@ -15,9 +15,12 @@ body {
 	visibility: hidden;
 }
 
-canvas,
-details {
+canvas {
 	max-width: 600px;
+}
+
+details {
+	max-width: 500px;
 }
 
 details {
@@ -105,7 +108,7 @@ span {
 	}
 }
 
-@media screen and (min-width: 1276px) {
+@media screen and (min-width: 1180px) {
 	.meter {
 		float: left;
 	}
