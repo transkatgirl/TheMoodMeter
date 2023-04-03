@@ -1,5 +1,3 @@
-navigator.serviceWorker.register("worker.js");
-
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 
@@ -477,6 +475,15 @@ function heatmapData() {
 
 }
 
+function handleForceUpdate() {
+	navigator.serviceWorker.getRegistrations().then(function (registrations) {
+		for (let registration of registrations) {
+			registration.unregister();
+		}
+	});
+	location.reload();
+}
+
 loadConfig(window.localStorage.getItem("config"));
 
 loadData(window.localStorage.getItem("mood_data"), false);
@@ -528,3 +535,5 @@ data_hide_input.onchange = function () {
 	writeConfig();
 	graphData(config.maximum_graphed_points);
 };
+
+navigator.serviceWorker.register("worker.js");

@@ -44,7 +44,7 @@
 			<p></p>
 			<button onclick="clearData()">Clear All Data</button>
 			<button onclick="handleFileDownload()">Export Data to JSON</button>
-			<button onclick='document.getElementById("upload").click();''>Import Data from JSON</button>
+			<button onclick='document.getElementById("upload").click()'>Import Data from JSON</button>
 			<input id="upload" type="file" onchange="handleFileUpload()" />
 			<a id="download"></a>
 			<p></p>
@@ -61,6 +61,13 @@
 			<button onclick="graphData(0)">Clear Graph (Hide Data)</button>
 			<button onclick="handleGraphDownload()">Download Graph Image</button>
 			<p></p>
+			<hr />
+			<h3>Troubleshooting</h3>
+			<button onclick="location.reload()">Reload page</button>
+			<button onclick="handleForceUpdate()">Clear cache</button>
+			<button
+				onclick='if (window.confirm("Do you really want to reset settings to defaults?")) {loadConfig(null);settings_menu.setAttribute("open", "");writeConfig()}'>Reset
+				settings to defaults</button>
 		</details>
 		<details id="moods">
 			<summary>Recorded moods</summary>
@@ -74,4 +81,5 @@
 			</table>
 		</details>
 	</body>
+
 </html>
