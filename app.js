@@ -476,12 +476,14 @@ function heatmapData() {
 }
 
 function handleForceUpdate() {
-	navigator.serviceWorker.getRegistrations().then(function (registrations) {
-		for (let registration of registrations) {
-			registration.unregister();
-		}
-	});
-	location.reload();
+	if (navigator.onLine || window.confirm("You appear to be offline, are you sure you want to clear the cache?")) {
+		navigator.serviceWorker.getRegistrations().then(function (registrations) {
+			for (let registration of registrations) {
+				registration.unregister();
+			}
+		});
+		location.reload();
+	}
 }
 
 loadConfig(window.localStorage.getItem("config"));
