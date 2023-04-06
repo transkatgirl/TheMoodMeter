@@ -303,6 +303,11 @@ function clearTable(table) {
 
 function addData(dataT, dataX, dataY, notes) {
 	if ((mood_data.length > 0) && (dataT - mood_data[mood_data.length - 1].timestamp < 60 * 1000 * config.minimum_minutes)) {
+		let oldnotes = mood_data[mood_data.length - 1].notes;
+		if (oldnotes != undefined && notes == "") {
+			notes = oldnotes;
+		}
+
 		table.deleteRow(1);
 		mood_data.pop();
 	}
