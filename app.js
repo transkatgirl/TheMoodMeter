@@ -253,13 +253,46 @@ function renderTemplate2(ctx) {
 	ctx.fillText("chilling", canvas.width * 0.917, (canvas.height * 0.917) + textSize);
 }
 
-function addTableRow(table, dataT, dataX, dataY) {
+function addNotes(timestamp) {
+	let point = mood_data.find(element => element.timestamp == timestamp);
+
+	let oldnotes = "";
+
+	if (point.notes != undefined) {
+		oldnotes = point.notes;
+	}
+
+	let notes = window.prompt("What notes would you like to add to the data point recorded on " + new Date(point.timestamp).toLocaleString() + "?", oldnotes);
+
+	if (notes == null) {
+		return;
+	}
+
+	point.notes = notes;
+	window.localStorage.setItem("mood_data", JSON.stringify(mood_data));
+
+	let row = Array.from(table.rows).find(row => row.cells[0].innerHTML == new Date(timestamp).toLocaleDateString() && row.cells[1].innerHTML == new Date(timestamp).toLocaleTimeString() && row.cells[2].innerHTML == "(" + Math.round(point.valence * 1000) / 100 + ", " + Math.round(point.arousal * 1000) / 100 + ")");
+
+	row.cells[3].innerHTML = "";
+	row.cells[3].appendChild(document.createTextNode(notes));
+}
+
+function addTableRow(table, dataT, dataX, dataY, notes) {
 	let row = table.insertRow(1);
 
 	row.insertCell().innerHTML = new Date(dataT).toLocaleDateString();
 	row.insertCell().innerHTML = new Date(dataT).toLocaleTimeString();
-	row.insertCell().innerHTML = Math.round(dataX * 1000) / 100;
-	row.insertCell().innerHTML = Math.round(dataY * 1000) / 100;
+	row.insertCell().innerHTML = "(" + Math.round(dataX * 1000) / 100 + ", " + Math.round(dataY * 1000) / 100 + ")";
+
+	if (notes == undefined) {
+		row.insertCell().innerHTML = "";
+	} else {
+		row.insertCell().appendChild(document.createTextNode(notes));
+	}
+
+	row.onclick = function () {
+		addNotes(dataT);
+	};
 }
 
 function clearTable(table) {
@@ -268,14 +301,14 @@ function clearTable(table) {
 	}
 }
 
-function addData(dataT, dataX, dataY) {
+function addData(dataT, dataX, dataY, notes) {
 	if ((mood_data.length > 0) && (dataT - mood_data[mood_data.length - 1].timestamp < 60 * 1000 * config.minimum_minutes)) {
 		table.deleteRow(1);
 		mood_data.pop();
 	}
 
-	addTableRow(table, dataT, dataX, dataY);
-	mood_data.push({ timestamp: dataT, valence: dataX, arousal: dataY });
+	addTableRow(table, dataT, dataX, dataY, notes);
+	mood_data.push({ timestamp: dataT, valence: dataX, arousal: dataY, notes: notes });
 
 	truncateData(table);
 	window.localStorage.setItem("mood_data", JSON.stringify(mood_data));
@@ -300,7 +333,7 @@ function loadData(dataString, saveData) {
 
 	clearTable(table);
 	for (var i = 0; i < mood_data.length; i++) {
-		addTableRow(table, mood_data[i].timestamp, mood_data[i].valence, mood_data[i].arousal);
+		addTableRow(table, mood_data[i].timestamp, mood_data[i].valence, mood_data[i].arousal, mood_data[i].notes);
 	}
 
 	if (saveData) {
@@ -323,7 +356,7 @@ function handleCanvasClick(event) {
 	let dataX = (event.offsetX / canvas.offsetWidth);
 	let dataY = (1 - (event.offsetY / canvas.offsetHeight));
 
-	addData(dataT, dataX, dataY);
+	addData(dataT, dataX, dataY, "");
 
 	if (config.data_hide_time > 0) {
 		graphData(1);
@@ -361,7 +394,7 @@ function handleFileDownload() {
 }
 
 function handleGraphDownload() {
-	download_link.download = "mood_data-" + Date.now() + ".png";
+	download_link.download = "mood_graph-" + Date.now() + ".png";
 	download_link.href = canvas.toDataURL('image/png');
 	download_link.click();
 }
