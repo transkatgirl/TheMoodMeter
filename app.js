@@ -10,7 +10,9 @@ const offscreen_ctx = canvas.templateCanvas.getContext("2d");
 const table = document.getElementById("table");
 
 var mood_data = [];
-var config = { moods_open: true, settings_open: false, theme: "1", maximum_data_points: 900, maximum_graphed_points: 15, minimum_minutes: 2, data_hide_time: 2.5 };
+var config = { moods_open: true, settings_open: false, theme: "1", maximum_data_points: 1200, maximum_graphed_points: 15, minimum_minutes: 5, data_hide_time: 2.5 };
+
+var default_config = config;
 
 const download_link = document.getElementById("download");
 
@@ -254,7 +256,7 @@ function renderTemplate2(ctx) {
 }
 
 function addNotes(timestamp) {
-	let point = mood_data.find(element => element.timestamp == timestamp);
+	let point = mood_data.find(element => new Date(element.timestamp).valueOf() == new Date(timestamp).valueOf());
 
 	let oldnotes = "";
 
@@ -313,7 +315,7 @@ function addData(dataT, dataX, dataY, notes) {
 	}
 
 	addTableRow(table, dataT, dataX, dataY, notes);
-	mood_data.push({ timestamp: dataT, valence: dataX, arousal: dataY, notes: notes });
+	mood_data.push({ timestamp: new Date(dataT), valence: dataX, arousal: dataY, notes: notes });
 
 	truncateData(table);
 	window.localStorage.setItem("mood_data", JSON.stringify(mood_data));
@@ -332,6 +334,9 @@ function loadData(dataString, saveData) {
 	}
 
 	mood_data = JSON.parse(dataString);
+	for (var i = 0; i < mood_data.length; i++) {
+		mood_data[i].timestamp = new Date(mood_data[i].timestamp);
+	}
 	mood_data.sort(function (a, b) {
 		return a.timestamp - b.timestamp;
 	});
@@ -357,7 +362,7 @@ function clearData() {
 }
 
 function handleCanvasClick(event) {
-	let dataT = Date.now();
+	let dataT = new Date();
 	let dataX = (event.offsetX / canvas.offsetWidth);
 	let dataY = (1 - (event.offsetY / canvas.offsetHeight));
 
@@ -374,7 +379,7 @@ function handleCanvasClick(event) {
 }
 
 function handleCanvasAfterClick() {
-	if (Date.now() - mood_data[mood_data.length - 1].timestamp > ((config.data_hide_time * 1000) - 100)) {
+	if (new Date() - mood_data[mood_data.length - 1].timestamp > ((config.data_hide_time * 1000) - 100)) {
 		graphData(config.maximum_graphed_points);
 	}
 }
@@ -394,6 +399,26 @@ function handleFileDownload() {
 	let blob = new Blob([JSON.stringify(mood_data)], { type: "text/json" });
 
 	download_link.download = "mood_data-" + Date.now() + ".json";
+	download_link.href = URL.createObjectURL(blob);
+	download_link.click();
+}
+
+function handleCSVFileDownload() {
+	let csv = "timestamp,valence,arousal,notes\n";
+
+	for (var i = 0; i < mood_data.length; i++) {
+		if (mood_data[i].notes != undefined) {
+			var notes = JSON.stringify(mood_data[i].notes);
+		} else {
+			var notes = "";
+		};
+
+		csv += new Date(mood_data[i].timestamp).toDateString() + " " + new Date(mood_data[i].timestamp).toLocaleTimeString("en") + "," + Math.round(mood_data[i].valence * 1000) / 100 + "," + Math.round(mood_data[i].arousal * 1000) / 100 + "," + notes + "\n";
+	}
+
+	let blob = new Blob([csv], { type: "text/csv" });
+
+	download_link.download = "mood_data-" + Date.now() + ".csv";
 	download_link.href = URL.createObjectURL(blob);
 	download_link.click();
 }
@@ -437,7 +462,7 @@ function loadTheme() {
 
 function loadConfig(configString) {
 	if (configString == null) {
-		configString = '{"moods_open": true, "settings_open": false, "theme": "1", "maximum_data_points": 900, "maximum_graphed_points": 15, "minimum_minutes": 2, "data_hide_time": 2.5}';
+		configString = JSON.stringify(default_config);
 	}
 
 	config = JSON.parse(configString);
@@ -487,7 +512,7 @@ function graphData(items) {
 		ctx.fillStyle = "rgba(" + value + ",0," + value + ",0.6)";
 		ctx.strokeStyle = "rgba(" + value + ",0," + value + ",0.5)";
 
-		if ((i == mood_data.length - 1) && ((Date.now() - mood_data[i].timestamp < 60 * 1000 * config.minimum_minutes) || (config.minimum_minutes == 0))) {
+		if ((i == mood_data.length - 1) && ((new Date() - mood_data[i].timestamp < 60 * 1000 * config.minimum_minutes) || (config.minimum_minutes == 0))) {
 			ctx.fillStyle = "rgba(255,0,255,0.9)";
 			ctx.strokeStyle = "rgba(255,0,255,0.5)";
 		}
