@@ -505,16 +505,24 @@ function graphData(items) {
 	ctx.lineWidth = Math.min(canvas.width, canvas.height) * 0.006;
 
 	for (var i = start; i < mood_data.length; i++) {
-		let value = 100 * ((mood_data[i].timestamp - mood_data[start].timestamp) / (mood_data[mood_data.length - 1].timestamp - mood_data[start].timestamp));
+		let value = (mood_data[i].timestamp - mood_data[start].timestamp) / (mood_data[mood_data.length - 1].timestamp - mood_data[start].timestamp);
 
-		value = value + (100 * (i - start) / ((mood_data.length - 1) - start));
+		value2 = (i - start) / ((mood_data.length - 1) - start);
 
-		ctx.fillStyle = "rgba(" + value + ",0," + value + ",0.6)";
-		ctx.strokeStyle = "rgba(" + value + ",0," + value + ",0.5)";
+		if (isNaN(value)) {
+			value = 1;
+		}
+
+		if (isNaN(value2)) {
+			value2 = 1;
+		}
+
+		ctx.fillStyle = "hsl(" + 300 + " " + ((value * 40) + 60) + "% " + ((value2 * 20) + (value * 20)) + "% / 0.6)";
+		ctx.strokeStyle = "hsl(" + 300 + " " + ((value * 40) + 60) + "% " + ((value2 * 20) + (value * 20)) + "% / 0.5)";
 
 		if ((i == mood_data.length - 1) && ((new Date() - mood_data[i].timestamp < 60 * 1000 * config.minimum_minutes) || (config.minimum_minutes == 0))) {
-			ctx.fillStyle = "rgba(255,0,255,0.9)";
-			ctx.strokeStyle = "rgba(255,0,255,0.5)";
+			ctx.fillStyle = "hsl(300 100% 60% / 0.9)";
+			ctx.strokeStyle = "hsl(300 100% 60% / 0.5)";
 		}
 
 		ctx.beginPath();
@@ -530,7 +538,7 @@ function heatmapData() {
 	ctx.drawImage(canvas.templateCanvas, 0, 0);
 	let dotSize = Math.min(canvas.width, canvas.height) * 0.2;
 
-	ctx.fillStyle = "rgba(96,0,96," + Math.min(Math.max(0.2 / Math.log10(mood_data.length), 0.01), 0.75) + ")";
+	ctx.fillStyle = "hsl(300 100% 19% / " + Math.min(Math.max(0.2 / Math.log10(mood_data.length), 0.01), 0.75) + ")";
 
 	for (var i = 0; i < mood_data.length; i++) {
 		ctx.fillRect((mood_data[i].valence * canvas.width) - (dotSize / 2), ((1 - mood_data[i].arousal) * canvas.height) - (dotSize / 2), dotSize, dotSize);
