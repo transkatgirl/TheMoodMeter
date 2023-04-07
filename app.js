@@ -404,7 +404,7 @@ function handleFileDownload() {
 }
 
 function handleCSVFileDownload() {
-	let csv = "timestamp,valence,arousal,notes\n";
+	let csv = "Date & Time,Pleasantness,Energy,Notes\n";
 
 	for (var i = 0; i < mood_data.length; i++) {
 		if (mood_data[i].notes != undefined) {
