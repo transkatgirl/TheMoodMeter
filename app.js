@@ -190,7 +190,7 @@ function renderTemplate2(ctx) {
 	ctx.fillText("fucking back", canvas.width * 0.917, (canvas.height * 0.2495) + (textSize / 2));
 
 	ctx.fillText("I hate", canvas.width * 0.083, (canvas.height * 0.4165) - (textSize / 2));
-	ctx.fillText("women", canvas.width * 0.083, (canvas.height * 0.4165) + (textSize / 2));
+	ctx.fillText("everyone", canvas.width * 0.083, (canvas.height * 0.4165) + (textSize / 2));
 	ctx.fillText("I don't think we", canvas.width * 0.2495, (canvas.height * 0.4165) - textSize);
 	ctx.fillText("making it out of", canvas.width * 0.2495, (canvas.height * 0.4165));
 	ctx.fillText("the hood bro", canvas.width * 0.2495, (canvas.height * 0.4165) + textSize);
@@ -521,8 +521,8 @@ function graphData(items) {
 		ctx.strokeStyle = "hsl(" + 300 + " " + ((value * 40) + 60) + "% " + ((value2 * 20) + (value * 20)) + "% / 0.5)";
 
 		if ((i == mood_data.length - 1) && ((new Date() - mood_data[i].timestamp < 60 * 1000 * config.minimum_minutes) || (config.minimum_minutes == 0))) {
-			ctx.fillStyle = "hsl(300 100% 60% / 0.9)";
-			ctx.strokeStyle = "hsl(300 100% 60% / 0.5)";
+			ctx.fillStyle = "hsl(300 100% 50% / 0.9)";
+			ctx.strokeStyle = "hsl(300 100% 50% / 0.5)";
 		}
 
 		ctx.beginPath();
