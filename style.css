@@ -11,10 +11,6 @@ body {
 	text-orientation: mixed;
 }
 
-.hidden {
-	visibility: hidden;
-}
-
 canvas {
 	max-width: 600px;
 }
@@ -24,17 +20,28 @@ details {
 }
 
 details {
-	border: 2px solid black;
-	border-radius: 4px;
 	margin: 0.5em;
 }
 
 th,
 td {
-	padding: 0.5em;
 	max-width: 195px;
 	overflow-wrap: break-word;
 	width: auto;
+}
+
+td,
+th,
+summary,
+details[open] {
+	padding: 0.5em;
+}
+
+button,
+input,
+select,
+details {
+	border: 2px solid black;
 }
 
 td:not(:last-child),
@@ -43,7 +50,8 @@ th:not(:last-child) {
 }
 
 tr:not(:last-child) th,
-tr:not(:last-child) td {
+tr:not(:last-child) td,
+details[open] summary {
 	border-bottom: 2px solid black;
 }
 
@@ -62,15 +70,9 @@ table {
 summary {
 	font-weight: bold;
 	margin: -0.5em -0.5em 0;
-	padding: 0.5em;
-}
-
-details[open] {
-	padding: 0.5em;
 }
 
 details[open] summary {
-	border-bottom: 2px solid black;
 	margin-bottom: 0.5em;
 }
 
@@ -85,13 +87,19 @@ hr {
 button,
 input,
 select {
-	border: 2px solid black;
-	border-radius: 4px;
 	background-color: gainsboro;
 	padding: .2em .4em;
 	margin: .2em 0;
 	font-size: .8em;
 	color: black;
+}
+
+button,
+input,
+select,
+canvas,
+details {
+	border-radius: 4px;
 }
 
 .meter {

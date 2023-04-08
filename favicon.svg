@@ -1,0 +1,13 @@
+<svg version="1.1" width="512" height="512"
+	xmlns="http://www.w3.org/2000/svg">
+
+	<rect width="50%" height="50%" fill="firebrick" />
+	<rect y="50%" width="50%" height="50%" fill="lightblue" />
+	<rect x="50%" y="50%" width="50%" height="50%" fill="darkseagreen" />
+	<rect x="50%" width="50%" height="50%" fill="darkolivegreen" />
+	<g fill="orange">
+		<rect y="35%" width="65%" height="17%" />
+		<rect x="48%" y="50%" width="17%" height="50%" />
+	</g>
+
+</svg>

@@ -1,13 +1,12 @@
-const version = "17";
+const version = "18";
 
 const app_files = [
 	"./",
 	"index.html",
 	"app.js",
 	"style.css",
-	"favicon.ico",
+	"favicon.svg",
 	"favicon.png",
-	"apple-touch-icon.png",
 	"manifest.webmanifest"
 ];
 
