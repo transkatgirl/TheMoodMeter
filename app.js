@@ -552,8 +552,8 @@ function handleForceUpdate() {
 			for (let registration of registrations) {
 				registration.unregister();
 			}
+			location.reload();
 		});
-		location.reload();
 	}
 }
 
