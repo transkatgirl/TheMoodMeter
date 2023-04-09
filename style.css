@@ -163,3 +163,42 @@ span {
 		word-break: break-word;
 	}
 }
+
+@media (prefers-color-scheme: dark) {
+	body {
+		background-color: #1c1c1c;
+		color: #eaeaea;
+	}
+
+	button,
+	input,
+	select,
+	details {
+		border: 2px solid #383838;
+	}
+
+	details[open] summary {
+		border-bottom: 2px solid #383838;
+	}
+
+	td:not(:last-child),
+	th:not(:last-child) {
+		border-right: 2px solid #545454;
+	}
+
+	tr:not(:last-child) th,
+	tr:not(:last-child) td {
+		border-bottom: 2px solid #545454;
+	}
+
+	hr {
+		border: 1px solid #545454;
+	}
+
+	button,
+	input,
+	select {
+		background-color: #383838;
+		color: #eaeaea;
+	}
+}
