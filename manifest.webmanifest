@@ -7,11 +7,6 @@
 			"src": "favicon.png",
 			"sizes": "512x512",
 			"type": "image/png"
-		},
-		{
-			"src": "favicon.svg",
-			"sizes": "any",
-			"type": "image/svg+xml"
 		}
 	],
 	"name": "The Mood Meter",
