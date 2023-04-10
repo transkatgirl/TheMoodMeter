@@ -1,3 +1,5 @@
+// yes i'm aware the code is a mess, i'll clean it up soon
+
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 
@@ -273,21 +275,21 @@ function addNotes(timestamp) {
 	point.notes = notes;
 	window.localStorage.setItem("mood_data", JSON.stringify(mood_data));
 
-	let row = Array.from(table.rows).find(row => row.cells[0].innerHTML == new Date(timestamp).toLocaleDateString() && row.cells[1].innerHTML == new Date(timestamp).toLocaleTimeString() && row.cells[2].innerHTML == "(" + Math.round(point.valence * 1000) / 100 + ", " + Math.round(point.arousal * 1000) / 100 + ")");
+	let row = Array.from(table.rows).find(row => row.cells[0].innerText == new Date(timestamp).toLocaleDateString() && row.cells[1].innerText == new Date(timestamp).toLocaleTimeString() && row.cells[2].innerText == "(" + Math.round(point.valence * 1000) / 100 + ", " + Math.round(point.arousal * 1000) / 100 + ")");
 
-	row.cells[3].innerHTML = "";
+	row.cells[3].innerText = "";
 	row.cells[3].appendChild(document.createTextNode(notes));
 }
 
 function addTableRow(table, dataT, dataX, dataY, notes) {
 	let row = table.insertRow(1);
 
-	row.insertCell().innerHTML = new Date(dataT).toLocaleDateString();
-	row.insertCell().innerHTML = new Date(dataT).toLocaleTimeString();
-	row.insertCell().innerHTML = "(" + Math.round(dataX * 1000) / 100 + ", " + Math.round(dataY * 1000) / 100 + ")";
+	row.insertCell().innerText = new Date(dataT).toLocaleDateString();
+	row.insertCell().innerText = new Date(dataT).toLocaleTimeString();
+	row.insertCell().innerHTML = "<a href='javascript:void(0)'>(" + Math.round(dataX * 1000) / 100 + ", " + Math.round(dataY * 1000) / 100 + ")</a>";
 
 	if (notes == undefined) {
-		row.insertCell().innerHTML = "";
+		row.insertCell().innerText = "";
 	} else {
 		row.insertCell().appendChild(document.createTextNode(notes));
 	}
@@ -496,6 +498,14 @@ function writeConfig() {
 	window.localStorage.setItem("config", JSON.stringify(config));
 }
 
+function resetConfig() {
+	if (window.confirm("Do you really want to reset settings to defaults?")) {
+		loadConfig(null);
+		settings_menu.setAttribute("open", "");
+		writeConfig();
+	}
+}
+
 function graphData(items) {
 	ctx.drawImage(canvas.templateCanvas, 0, 0);
 
@@ -609,4 +619,9 @@ data_hide_input.onchange = function () {
 	graphData(config.maximum_graphed_points);
 };
 
-navigator.serviceWorker.register("worker.js");
+if (location.hostname === "localhost" || location.hostname === "127.0.0.1") {
+	document.getElementById("cache_button").style.display = "none";
+} else {
+	navigator.serviceWorker.register("worker.js");
+	document.getElementById("cache_button").innerText = "Clear cache (v" + new Date(document.lastModified).toISOString().split(".")[0] + ")";
+}

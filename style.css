@@ -8,62 +8,63 @@ body {
 
 .vertical {
 	writing-mode: vertical-rl;
-	text-orientation: mixed;
 }
 
 canvas {
-	max-width: 600px;
+	max-width: 38em;
 }
 
 details {
-	max-width: 500px;
+	max-width: 32em;
+	width: fit-content;
 }
 
 details {
-	margin: 0.5em;
+	margin: .5em;
 }
 
 th,
 td {
-	max-width: 195px;
-	overflow-wrap: break-word;
-	width: auto;
+	max-width: 13em;
 }
 
 td,
 th,
 summary,
 details[open] {
-	padding: 0.5em;
+	padding: .5em;
 }
 
 button,
 input,
 select,
 details {
-	border: 2px solid black;
+	border: .125em solid black;
 }
 
 td:not(:last-child),
 th:not(:last-child) {
-	border-right: 2px solid black;
+	border-right: .125em solid black;
 }
 
 tr:not(:last-child) th,
 tr:not(:last-child) td,
 details[open] summary {
-	border-bottom: 2px solid black;
+	border-bottom: .125em solid black;
+}
+
+hr {
+	border: .0625em solid black;
 }
 
 details {
-	padding: 0.5em 0.5em 0;
-	width: fit-content;
+	padding: .5em .5em 0;
 }
 
 table {
 	overflow: auto;
 	display: inline-block;
-	max-height: 500px;
+	max-height: 32em;
 	border-spacing: 0;
 }
 
@@ -73,11 +74,7 @@ summary {
 }
 
 details[open] summary {
-	margin-bottom: 0.5em;
-}
-
-hr {
-	border: 1px solid black;
+	margin-bottom: .5em;
 }
 
 #upload {
@@ -99,13 +96,14 @@ input,
 select,
 canvas,
 details {
-	border-radius: 4px;
+	border-radius: .25em;
 }
 
 .meter {
 	display: grid;
 	grid-template-columns: 1em 1fr;
 	width: min-content;
+	margin-right: .5em;
 }
 
 span {
@@ -113,19 +111,24 @@ span {
 	padding: .1em;
 }
 
-@media screen and (min-width: 1000px) {
+td a {
+	color: inherit;
+	text-decoration: none;
+}
+
+@media screen and (min-width: 69.5em) {
 	details {
 		float: right;
 	}
 }
 
-@media screen and (min-width: 1180px) {
+@media screen and (min-width: 74.75em) {
 	.meter {
 		float: left;
 	}
 }
 
-@media screen and (max-width: 650px) {
+@media screen and (max-width: 41em) {
 	canvas {
 		width: 100%;
 	}
@@ -135,7 +138,7 @@ span {
 	}
 }
 
-@media screen and (max-width: 550px) {
+@media screen and (max-width: 35.25em) {
 	table {
 		max-width: 100%;
 	}
@@ -145,18 +148,18 @@ span {
 	}
 }
 
-@media screen and (max-width: 402px) {
+@media screen and (max-width: 25.1875em) {
 	details {
 		width: unset;
 	}
 
 	td,
 	th {
-		max-width: 100px;
+		max-width: 6.25em;
 	}
 }
 
-@media screen and (min-width: 403px) {
+@media screen and (min-width: 25.25em) {
 
 	td:last-child,
 	th:last-child {
@@ -172,33 +175,33 @@ span {
 
 	button,
 	input,
-	select,
-	details {
-		border: 2px solid #383838;
-	}
-
-	details[open] summary {
-		border-bottom: 2px solid #383838;
-	}
-
-	td:not(:last-child),
-	th:not(:last-child) {
-		border-right: 2px solid #545454;
-	}
-
-	tr:not(:last-child) th,
-	tr:not(:last-child) td {
-		border-bottom: 2px solid #545454;
-	}
-
-	hr {
-		border: 1px solid #545454;
+	select {
+		background-color: #383838;
+		color: #eaeaea;
 	}
 
 	button,
 	input,
-	select {
-		background-color: #383838;
-		color: #eaeaea;
+	select,
+	details {
+		border: .125em solid #383838;
+	}
+
+	details[open] summary {
+		border-bottom: .125em solid #383838;
+	}
+
+	td:not(:last-child),
+	th:not(:last-child) {
+		border-right: .125em solid #545454;
+	}
+
+	tr:not(:last-child) th,
+	tr:not(:last-child) td {
+		border-bottom: .125em solid #545454;
+	}
+
+	hr {
+		border: .0625em solid #545454;
 	}
 }
